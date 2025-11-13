@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Magasins Canadian Tire – EconoDeal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 1200px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      font-size: 14px;
+    }
+    th {
+      background: #f4f4f4;
+      text-align: left;
+    }
+    tr:nth-child(even) {
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+  <h1>Magasins Canadian Tire suivis par EconoDeal</h1>
+
+  <table id="branches-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Adresse</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Les lignes seront ajoutées ici en JavaScript -->
+    </tbody>
+  </table>
+
+  <script>
+    // ⚠️ IMPORTANT :
+    // Si ton fichier est à la racine du projet et s'appelle "branches.json",
+    // on laisse comme ça :
+    fetch('branches.json')
+
+    // Si ton fichier est dans un dossier, par exemple "data/branches.json",
+    // tu changerais par :
+    // fetch('data/branches.json')
+
+      .then(response => response.json())
+      .then(branches => {
+        const tbody = document.querySelector('#branches-table tbody');
+
+        branches.forEach(b => {
+          const tr = document.createElement('tr');
+
+          const tdId = document.createElement('td');
+          tdId.textContent = b.id;
+
+          const tdName = document.createElement('td');
+          tdName.textContent = b.name;
+
+          const tdAddress = document.createElement('td');
+          tdAddress.textContent = b.address;
+
+          tr.appendChild(tdId);
+          tr.appendChild(tdName);
+          tr.appendChild(tdAddress);
+
+          tbody.appendChild(tr);
+        });
+      })
+      .catch(err => {
+        console.error('Erreur chargement branches.json', err);
+      });
+  </script>
+</body>
+</html>
